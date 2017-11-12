@@ -1,28 +1,46 @@
 function onReady(){
-//const is used instead of var because it prevents accidental reassignment
+//an array of to-dos
+  const toDos = [];
   const addToDoForm = document.getElementById('addToDoForm');
-  const newToDoText= document.getElementById('newToDoText');
-  const toDoList = document.getElementById('toDoList');
-    addToDoForm.addEventListener('submit', event => {
-//prevents the page from reloading
-      event.preventDefault();
-//gets the text from the moment the user clicks submit
-      let title = newToDoText.value;
-//create a new bullet li
-      let newLi = document.createElement('li');
-//create a new input
-      let checkbox = document.createElement('input');
-//set the input's type as a checkbox
-      checkbox.type = "checkbox";
-//set the title
-      newLi.textContent = title;
-//attach the checkbox to the bullet or li element
-      newLi.appendChild(checkbox);
-//attach the new bullet or li element to the ul
-      toDoList.appendChild(newLi);
-//clears out the input bar so that you don't have to delete to add new To-Do
+    function createNewToDo(){
+//accesses the text input
+      const newToDoText = document.getElementById('newToDoText');
+/*prevents a user from submitting an empty to do item. 
+Executes a return if newToDoText is false */
+        if(!newToDoText.value) {return}
+
+      toDos.push({
+        title: newToDoText.value,
+        complete: false
+      });
       newToDoText.value = '';
+      renderTheUI();
+    }
+
+    function renderTheUI(){
+      const toDoList = document.getElementById('toDoList');
+
+      toDoList.textContent = '';
+//the forEach() method
+      toDos.forEach(function(toDo) {
+        const newLi = document.createElement('li');
+        const checkbox = document.createElement('input');
+        checkbox.type= "checkbox";
+//adding the submitted to do to the ul as an li
+        newLi.textContent = toDo.title;
+
+        toDoList.appendChild(newLi);
+        newLi.appendChild(checkbox);
+      });
+    }
+//listens for the event-- when the user clicks submit
+    addToDoForm.addEventListener('submit', event => {
+//keeps the page from reloading when the submit button is clicked
+      event.preventDefault();
+      createNewToDo();
     });
+
+    renderTheUI();
 }
 
 window.onload = function(){
