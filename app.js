@@ -5,9 +5,9 @@ function onReady(){
     function createNewToDo(){
 //accesses the text input
       const newToDoText = document.getElementById('newToDoText');
-/*prevents a user from submitting an empty to do item. 
+/*prevents a user from submitting an empty to do item.
 Executes a return if newToDoText is false */
-        if(!newToDoText.value) {return}
+        if(!newToDoText.value) {return;}
 
       toDos.push({
         title: newToDoText.value,
