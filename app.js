@@ -19,6 +19,11 @@ function onReady() {
         renderTheUI();
     }
 
+   function removeToDo(newNum) {
+    toDos = toDos.filter((remove) => remove.id !== newNum);
+      renderTheUI(toDos);
+    }
+
     function renderTheUI(){
         const toDoList = document.getElementById('toDoList');
 
@@ -38,14 +43,16 @@ function onReady() {
             newLi.appendChild(checkbox);
             newLi.appendChild(delButton);
 
+
+
             delButton.addEventListener('click', event => {
-                let newArray = toDos.filter(remove => toDo.id === newNum);
-                toDos.splice(toDo.id, 1);
-                
-                    renderTheUI();
-            });
+              removeToDo(toDo.id);
+          });
+
         });
+
     }
+
 
     addToDoForm.addEventListener('submit', event => {
         event.preventDefault();
